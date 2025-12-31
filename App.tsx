@@ -1,4 +1,5 @@
 
+import { createClient } from '@supabase/supabase-js';
 import React, { useState, useEffect } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { Dashboard } from './components/Dashboard';
@@ -20,14 +21,6 @@ const App: React.FC = () => {
   const [categories] = useState<Category[]>(DEFAULT_CATEGORIES);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [userWhatsAppJid, setUserWhatsAppJid] = useState<string | null>(null);
-
-  if (!supabase) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-900 text-white">
-        ⚠️ Supabase não configurado.
-      </div>
-    );
-  }
 
   const mapDbToTransaction = (item: any, source: 'gastos' | 'receitas'): Transaction => {
     // Tratamento robusto para garantir que o valor seja numérico
